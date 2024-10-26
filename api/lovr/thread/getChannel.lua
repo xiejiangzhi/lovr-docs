@@ -20,6 +20,7 @@ return {
     }
   },
   related = {
-    'Channel'
+    'Channel',
+    'lovr.thread.newChannel'
   }
 }

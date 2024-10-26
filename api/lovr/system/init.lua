@@ -20,6 +20,10 @@ return {
       tag = 'system-mouse'
     },
     {
+      name = 'Clipboard',
+      tag = 'system-clipboard'
+    },
+    {
       name = 'Window',
       tag = 'system-window'
     }

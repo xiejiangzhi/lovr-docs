@@ -43756,6 +43756,26 @@ return {
       },
       functions = {
         {
+          name = "getClipboardText",
+          tag = "system-clipboard",
+          summary = "Get the clipboard text.",
+          description = "Returns the clipboard text.",
+          key = "lovr.system.getClipboardText",
+          module = "lovr.system",
+          variants = {
+            {
+              arguments = {},
+              returns = {
+                {
+                  name = "text",
+                  type = "string",
+                  description = "The clipboard text (may be nil)."
+                }
+              }
+            }
+          }
+        },
+        {
           name = "getCoreCount",
           tag = "system-info",
           summary = "Get the number of logical cores.",
@@ -44193,6 +44213,26 @@ return {
           }
         },
         {
+          name = "setClipboardText",
+          tag = "system-clipboard",
+          summary = "Set the clipboard text.",
+          description = "Sets the clipboard text.",
+          key = "lovr.system.setClipboardText",
+          module = "lovr.system",
+          variants = {
+            {
+              arguments = {
+                {
+                  name = "text",
+                  type = "string",
+                  description = "The string to set as the clipboard text."
+                }
+              },
+              returns = {}
+            }
+          }
+        },
+        {
           name = "setKeyRepeat",
           tag = "system-keyboard",
           summary = "Enable or disable key repeat.",
@@ -44364,6 +44404,10 @@ return {
           tag = "system-mouse"
         },
         {
+          name = "Clipboard",
+          tag = "system-clipboard"
+        },
+        {
           name = "Window",
           tag = "system-window"
         }
@@ -44384,7 +44428,8 @@ return {
           key = "lovr.thread.getChannel",
           module = "lovr.thread",
           related = {
-            "Channel"
+            "Channel",
+            "lovr.thread.newChannel"
           },
           variants = {
             {
@@ -44400,6 +44445,28 @@ return {
                   name = "channel",
                   type = "Channel",
                   description = "The Channel with the specified name."
+                }
+              }
+            }
+          }
+        },
+        {
+          name = "newChannel",
+          summary = "Create a new, unnamed Channel.",
+          description = "Creates a new unnamed `Channel` object.  Usually it's more convenient to use `lovr.thread.getChannel`, since other threads can use that function to query the channel by name.  Unnamed channels don't require a unique name, but they need to be sent to other threads somehow (e.g. on a different Channel or as an argument to `Thread:start`).",
+          key = "lovr.thread.newChannel",
+          module = "lovr.thread",
+          related = {
+            "lovr.thread.getChannel"
+          },
+          variants = {
+            {
+              arguments = {},
+              returns = {
+                {
+                  name = "channel",
+                  type = "Channel",
+                  description = "The new Channel."
                 }
               }
             }
@@ -44472,10 +44539,11 @@ return {
         {
           name = "Channel",
           summary = "A message channel for communicating between threads.",
-          description = "A Channel is an object used to communicate between `Thread` objects.  Channels are obtained by name using `lovr.thread.getChannel`.  Different threads can send messages on the same Channel to communicate with each other.  Messages can be sent and received on a Channel using `Channel:push` and `Channel:pop`, and are received in a first-in-first-out fashion. The following types of data can be passed through Channels: nil, boolean, number, string, and any LÖVR object.",
+          description = "A Channel is an object used to communicate between `Thread` objects.  Different threads can send messages on the same Channel to communicate with each other.  Messages can be sent and received on a Channel using `Channel:push` and `Channel:pop`, and are received in a first-in-first-out fashion. The following types of data can be passed through Channels: nil, boolean, number, string, lightuserdata, table, vector, and any LÖVR object.",
           key = "Channel",
           module = "lovr.thread",
           constructors = {
+            "lovr.thread.newChannel",
             "lovr.thread.getChannel"
           },
           methods = {
