@@ -25,7 +25,7 @@ function lovr.load()
   buffer = lovr.graphics.newBuffer('mat4', transformBlob)
 
   shader = lovr.graphics.newShader([[
-    layout(set = 2, binding = 0) uniform TransformBuffer { mat4 transforms[500]; };
+    uniform TransformBuffer { mat4 transforms[500]; };
 
     vec4 lovrmain() {
       return Projection * View * Transform * transforms[InstanceIndex] * VertexPosition;

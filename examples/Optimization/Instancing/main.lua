@@ -18,7 +18,7 @@ function lovr.load()
 
   -- Make a shader that uses transforms from a buffer
   shader = lovr.graphics.newShader([[
-    layout(set = 2, binding = 0) uniform Transforms {
+    uniform Transforms {
       mat4 transforms[500];
     };
 

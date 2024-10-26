@@ -12,14 +12,14 @@ function lovr.load()
   })
 
   shader = lovr.graphics.newShader([[
-    layout(location = 0) out vec3 pos;
+    out vec3 pos;
     vec4 lovrmain() {
       pos = VertexPosition.xyz;
       return DefaultPosition;
     }
   ]], [[
-    layout(set = 2, binding = 0) uniform textureCube cube;
-    layout(location = 0) in vec3 pos;
+    in vec3 pos;
+    uniform textureCube cube;
     vec4 lovrmain() {
       return getPixel(cube, pos);
     }

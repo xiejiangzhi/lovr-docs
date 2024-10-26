@@ -30,7 +30,7 @@ return {
   example = [=[
     function lovr.load()
       shader = lovr.graphics.newShader([[
-        layout(location = 7) in uint coolAttribute;
+        in uint coolAttribute;
 
         vec4 lovrmain() {
           return DefaultPosition;
@@ -42,8 +42,6 @@ return {
       ]])
 
       print(shader:hasAttribute('coolAttribute')) --> true
-      print(shader:hasAttribute(7)) --> true
-      print(shader:hasAttribute(8)) --> false
     end
   ]=]
 }

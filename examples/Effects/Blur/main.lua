@@ -25,7 +25,7 @@ local blurShader = [[
   };
 
   // The texture to sample from.
-  layout(set = 2, binding = 0) uniform texture2DArray sourceTexture;
+  uniform texture2DArray sourceTexture;
 
   // lovr's shader architecture will automatically supply a main(), which will call this lovrmain() function
   vec4 lovrmain() {

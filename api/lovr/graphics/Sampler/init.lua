@@ -7,7 +7,7 @@ return {
     Each `Pass` has a default sampler that will be used by default, which can be changed using
     `Pass:setSampler`.  Also, samplers can be declared in shaders using the following syntax:
 
-        layout(set = 2, binding = X) uniform sampler mySampler;
+        uniform sampler mySampler;
 
     A Sampler can be sent to the variable using `Pass:send('mySampler', sampler)`.
 

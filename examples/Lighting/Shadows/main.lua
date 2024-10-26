@@ -55,13 +55,11 @@ local function lighting_shader()
   ]]
 
   local fs = [[
-    Constants {
-      vec3 lightPos;
-      mat4 lightSpaceMatrix;
-      bool lightOrthographic;
-    };
+    uniform vec3 lightPos;
+    uniform mat4 lightSpaceMatrix;
+    uniform bool lightOrthographic;
 
-    layout(set = 2, binding = 0) uniform texture2D shadowMapTexture;
+    uniform texture2D shadowMapTexture;
 
     vec4 diffuseLighting(vec3 lightDir, vec3 normal, float shadow) {
       float diff = max(dot(normal, lightDir), 0.0);

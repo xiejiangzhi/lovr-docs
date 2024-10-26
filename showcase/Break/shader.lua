@@ -1,9 +1,9 @@
 return lovr.graphics.newShader([[
 
 // All of these are in view-space.
-layout(location = 0) out vec3 lightDirection; // A vector from the vertex to the light
-layout(location = 1) out vec3 normalDirection;
-layout(location = 2) out vec3 vertexPosition;
+out vec3 lightDirection; // A vector from the vertex to the light
+out vec3 normalDirection;
+out vec3 vertexPosition;
 
 const vec3 lightPosition = vec3(0, 10, 3);
 
@@ -18,9 +18,9 @@ vec4 lovrmain() {
   return DefaultPosition;
 }
 ]], [[
-layout(location = 0) in vec3 lightDirection;
-layout(location = 1) in vec3 normalDirection;
-layout(location = 2) in vec3 vertexPosition;
+in vec3 lightDirection;
+in vec3 normalDirection;
+in vec3 vertexPosition;
 
 const vec3 cAmbient = vec3(.25);
 const vec3 cDiffuse = vec3(1);

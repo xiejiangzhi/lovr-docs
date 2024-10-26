@@ -33,12 +33,10 @@ function lovr.load()
   computeShader = lovr.graphics.newShader([[
     layout(local_size_x = 32, local_size_y = 1, local_size_z = 1) in;
 
-    layout(set = 0, binding = 0) buffer TransformBuffer { mat4 Transforms[]; };
-    layout(set = 0, binding = 1) buffer OffsetBuffer { mat4 Offsets[]; };
+    buffer TransformBuffer { mat4 Transforms[]; };
+    buffer OffsetBuffer { mat4 Offsets[]; };
 
-    Constants {
-      uint monkeyCount;
-    };
+    uniform uint monkeyCount;
 
     void lovrmain() {
       uint i = GlobalThreadID.x;
@@ -49,7 +47,7 @@ function lovr.load()
 
   -- Create the display shader, injecting the shader code for the block
   shader = lovr.graphics.newShader([[
-    layout(set = 2, binding = 0) buffer TransformBuffer { mat4 Transforms[]; };
+    buffer TransformBuffer { mat4 Transforms[]; };
 
     vec4 lovrmain() {
       return Projection * View * Transforms[InstanceIndex] * Transform * VertexPosition;

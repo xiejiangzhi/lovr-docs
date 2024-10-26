@@ -11,8 +11,8 @@ function lovr.load()
       return DefaultPosition;
     }
   ]], [[
-    layout(set = 2, binding = 0) uniform textureCube cubemap;
-    layout(set = 2, binding = 1) uniform sphericalHarmonics { vec3 sh[9]; };
+    uniform textureCube cubemap;
+    uniform sphericalHarmonics { vec3 sh[9]; };
 
     vec4 lovrmain() {
       Surface surface;

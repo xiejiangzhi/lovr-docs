@@ -118,7 +118,7 @@ function cubemap.load()
 
 	-- Create reflection shader
 	cubemap.shader = lovr.graphics.newShader('unlit', [[
-		layout(set = 2, binding = 0) uniform textureCube cubemap;
+		uniform textureCube cubemap;
 
 		vec4 lovrmain() {
 			vec3 V = normalize(CameraPositionWorld - PositionWorld);

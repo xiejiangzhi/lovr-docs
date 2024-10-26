@@ -37,7 +37,7 @@ return {
     of a single-field struct with an array in it.  Example:
 
         shader = lovr.graphics.newShader([[
-          layout(set = 0, binding = 0) buffer Numbers {
+          buffer Numbers {
             uint numbers[64];
           };
 
@@ -58,7 +58,7 @@ return {
             float grip;
           };
 
-          layout(set = 0, binding = 0) buffer Hand {
+          buffer Hand {
             HandParams params;
           };
 
@@ -71,7 +71,7 @@ return {
   ]=],
   example = [=[
     shader = lovr.graphics.newShader([[
-      layout(set = 2, binding = 0) uniform Transforms {
+      uniform Transforms {
         mat4 transforms[32];
       };
 

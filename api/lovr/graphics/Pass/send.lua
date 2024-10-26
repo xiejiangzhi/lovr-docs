@@ -86,13 +86,10 @@ return {
   example = [=[
     function lovr.load()
       shader = lovr.graphics.newShader([[
-        layout(set = 2, binding = 0) uniform sampler mySampler;
-        layout(set = 2, binding = 1) uniform Colors { vec4 colors[256]; };
-        layout(set = 2, binding = 2) uniform texture2D rocks;
-
-        Constants {
-          uint constant;
-        };
+        uniform sampler mySampler;
+        uniform Colors { vec4 colors[256]; };
+        uniform texture2D rocks;
+        uniform uint constant;
 
         vec4 lovrmain() {
           return DefaultPosition;

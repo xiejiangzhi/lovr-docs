@@ -98,6 +98,16 @@ the code of one or both of the stages:
 
     shader = lovr.graphics.newShader('vertex.glsl', 'unlit')
 
+Finally, for advanced use, `lovr.graphics.newShader` takes a `raw` option that will use raw GLSL
+code without any LÖVR helpers:
+
+    shader = lovr.graphics.newShader([[
+      #version 460
+      void main() {
+        //
+      }
+    ]], { raw = true })
+
 Shader Builtins
 ---
 
@@ -302,7 +312,7 @@ The following built-in variables and macros are available only in fragment shade
     </tr>
     <tr>
       <td><code>Tangent</code></td>
-      <td>vec3</td>
+      <td>vec4</td>
       <td>The tangent vector of the current pixel, in world space.</td>
     </tr>
     <tr>
@@ -425,25 +435,21 @@ Shader Inputs
 It's also possible to send values or objects from Lua to a Shader.  There are a few different ways
 to do this, each with their own tradeoffs (speed, size, ease of use, etc.).
 
-### Constants
+### Uniforms
 
-Shaders can declare constants, which can be booleans, numbers, vectors, or matrices.  There is a
-very limited amount of space for constants (usually 128 or 256 bytes, depends on the GPU), but they
-are very easy and inexpensive to update.
+Shaders can declare uniforms, which can be booleans, numbers, vectors, or matrices.  These have a
+constant or "uniform" value for all vertices/pixels that are drawn.  They are easy to use and
+inexpensive to update, but they must be resent every frame and whenever the shader changes.
 
-Constants are declared in shader code in a `Constants` block, then individual constants are modified
-from Lua using `Pass:send`:
+Uniforms are declared in shader code with the `uniform` keyword, and can be set with `Pass:send`:
 
     function lovr.load()
       shader = lovr.graphics.newShader('unlit', [[
-        Constants {
-          vec4 color1;
-          vec4 color2;
-        };
-
-        // Apply a vertical gradient using the 2 colors from the constants:
+        uniform vec4 color1;
+        uniform vec4 color2;
 
         vec4 lovrmain() {
+          // Apply a vertical gradient using the 2 colors from the uniforms:
           return mix(color1, color2, dot(Normal, vec3(0, 1, 0)) * .5 + .5);
         }
       ]])
@@ -451,17 +457,12 @@ from Lua using `Pass:send`:
 
     function lovr.draw(pass)
       pass:setShader(shader)
-
       pass:send('color1', { 1, 0, 1, 1 })
       pass:send('color2', { 0, 1, 1, 1 })
-
       pass:sphere(0, 1.7, -2)
     end
 
-The vertex and fragment stages share the constants block, so they should match or one should be a
-subset of the other.
-
-When the active shader is changed, constants will be preserved.
+When the active shader is changed, uniforms with the same name and type will be preserved.
 
 ### Vertex Attributes
 
@@ -500,26 +501,20 @@ the following default vertex attributes for shapes and meshes:
     </tr>
     <tr>
       <td>VertexTangent</td>
-      <td>vec3</td>
+      <td>vec4</td>
       <td>14</td>
     </tr>
   </tbody>
 </table>
 
-Custom vertex attributes can be declared for locations 0 through 9:
+Custom vertex attributes can be declared like this:
 
-    layout(location = 3) in vec3 customAttribute;
+    in vec3 customAttribute;
 
-The data in a buffer can then be associated with the attribute, either by name:
+The data in a buffer can then be associated with the attribute, by name:
 
     vertices = lovr.graphics.newBuffer(vertexCount, {
       { type = 'vec3', name = 'customAttribute' }
-    })
-
-Or by location:
-
-    vertices = lovr.graphics.newBuffer(vertexCount, {
-      { type = 'vec3', location = 3 }
     })
 
 ### Buffers
@@ -534,22 +529,20 @@ Data in buffers can be accessed in 2 ways:
 
 First, the buffer should be declared in the shader.  Here's an example declaring a uniform buffer:
 
-    layout(set = 2, binding = 0) uniform Colors {
+    uniform Colors {
       vec4 colors[100];
     };
 
 And an example storage buffer:
 
-    layout(set = 2, binding = 0) buffer Colors {
+    buffer Colors {
       vec4 colors[100];
     };
 
-The first part declares the set and binding of the variable.  Right now the set should always be 2
-(LÖVR uses set 0 and 1 internally).  The binding is a number that can be used to identify the
-variable.  After that, `uniform` or `buffer` is used to declare which type of buffer it is, followed
-by the name of the variable.  Finally, there is a block declaring the format of the data in the
-buffer, which should match the format used to create the Buffer in Lua (structs can be used if the
-buffer has multiple fields per element).
+First the `uniform` or `buffer` keyword is used to declare which type of buffer it is, followed by
+the name of the variable.  Finally, there is a block declaring the format of the data in the buffer,
+which should match the format used to create the Buffer in Lua (structs can be used if the buffer
+has multiple fields per element).
 
 A Buffer can be sent to one of the above variables like this:
 
@@ -561,6 +554,9 @@ A Buffer can be sent to one of the above variables like this:
 
 The shader can then use the `colors` array to access the data from the `palette` table.
 
+There is a very handy `Shader:getBufferFormat` method that will return a Buffer format from a
+variable in a shader, so you don't have to duplicate it in the Lua code.
+
 It's possible to bind a subset of a buffer to the shader by passing the range as extra arguments to
 `Pass:send`.
 
@@ -569,19 +565,19 @@ It's possible to bind a subset of a buffer to the shader by passing the range as
 Shaders can also access data from `Texture` objects.  Similar to buffers, textures can be accessed
 in 2 ways:
 
-- Sampled textures are read-only, and can use `Sampler` objects.
-- Storage textures can be written to using compute shaders.
+- **Sampled** textures are read-only, and can use `Sampler` objects.
+- **Storage** textures can be written to using compute shaders.
 
 Sampled textures are declared like this:
 
-    layout(set = 2, binding = 0) uniform texture2D myTexture;
+    uniform texture2D myTexture;
 
 The texture type can be `texture2D`, `textureCube`, `texture2DArray`, or `texture3D` (see
 `TextureType`).
 
 Storage textures are declared like this:
 
-    layout(set = 2, binding = 0) uniform image2D myImage;
+    uniform image2D myImage;
 
 A texture can be sent to the shader variable using `Pass:send`.
 
@@ -596,7 +592,7 @@ This will sample from the texture using the UV coordinates and the default sampl
 
 It's also possible to declare a custom sampler variable and use it to sample textures:
 
-    layout(set = 2, binding = 0) uniform sampler mySampler;
+    uniform sampler mySampler;
 
     // texture(sampler2D(myTexture, mySampler), UV)
 

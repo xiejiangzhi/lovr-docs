@@ -1,7 +1,7 @@
 local shaderCode = {[[
 /* VERTEX shader */
-layout(location = 0) out vec4 fragmentClip;
-layout(set = 2) uniform texture2D heightmap;
+out vec4 fragmentClip;
+uniform texture2D heightmap;
 
 vec4 lovrmain() {
   vec3 position = VertexPosition.xyz;
@@ -10,11 +10,9 @@ vec4 lovrmain() {
   return fragmentClip;
 } ]], [[
 /* FRAGMENT shader */
-layout(location = 0) in vec4 fragmentView;
+vec4 fragmentView;
 
-Constants {
-  vec3 fogColor;
-};
+uniform vec3 fogColor;
 
 vec4 lovrmain() {
   float fogAmount = atan(length(fragmentView) * 0.1) * 2.0 / PI;
