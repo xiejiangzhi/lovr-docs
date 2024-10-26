@@ -83,6 +83,10 @@ return {
       description = 'One 16-bit depth channel.  2 bytes per pixel.'
     },
     {
+      name = 'd24',
+      description = 'One 24-bit depth channel.  4 bytes per pixel.'
+    },
+    {
       name = 'd24s8',
       description = 'One 24-bit depth channel and one 8-bit stencil channel.  4 bytes per pixel.'
     },

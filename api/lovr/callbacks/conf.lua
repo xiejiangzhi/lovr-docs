@@ -211,6 +211,21 @@ return {
           }
         },
         {
+          name = 'thread',
+          type = 'table',
+          description = 'Configuration for the thread module.',
+          table = {
+            {
+              name = 'workers',
+              type = 'number',
+              description = [[
+                The number of worker threads to spawn.  Can be negative, which will be added to the
+                number of cores in the system.
+              ]]
+            }
+          }
+        },
+        {
           name = 'window',
           type = 'table',
           description = 'Configuration for the window.',
@@ -318,6 +333,9 @@ return {
 
           -- Math settings
           t.math.globals = true
+
+          -- Thread settings
+          t.thread.workers = -1
 
           -- Configure the desktop window
           t.window.width = 1080

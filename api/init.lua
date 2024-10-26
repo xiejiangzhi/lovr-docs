@@ -10,7 +10,7 @@ return {
       examples = {
         {
           description = "A noop conf.lua that sets all configuration settings to their defaults:",
-          code = "function lovr.conf(t)\n\n  -- Set the project version and identity\n  t.version = '0.17.0'\n  t.identity = 'default'\n\n  -- Set save directory precedence\n  t.saveprecedence = true\n\n  -- Enable or disable different modules\n  t.modules.audio = true\n  t.modules.data = true\n  t.modules.event = true\n  t.modules.graphics = true\n  t.modules.headset = true\n  t.modules.math = true\n  t.modules.physics = true\n  t.modules.system = true\n  t.modules.thread = true\n  t.modules.timer = true\n\n  -- Audio\n  t.audio.spatializer = nil\n  t.audio.samplerate = 48000\n  t.audio.start = true\n\n  -- Graphics\n  t.graphics.debug = false\n  t.graphics.vsync = true\n  t.graphics.stencil = false\n  t.graphics.antialias = true\n  t.graphics.shadercache = true\n\n  -- Headset settings\n  t.headset.drivers = { 'openxr', 'desktop' }\n  t.headset.supersample = false\n  t.headset.seated = false\n  t.headset.antialias = true\n  t.headset.stencil = false\n  t.headset.submitdepth = true\n  t.headset.overlay = false\n\n  -- Math settings\n  t.math.globals = true\n\n  -- Configure the desktop window\n  t.window.width = 1080\n  t.window.height = 600\n  t.window.fullscreen = false\n  t.window.resizable = false\n  t.window.title = 'LÖVR'\n  t.window.icon = nil\nend"
+          code = "function lovr.conf(t)\n\n  -- Set the project version and identity\n  t.version = '0.17.0'\n  t.identity = 'default'\n\n  -- Set save directory precedence\n  t.saveprecedence = true\n\n  -- Enable or disable different modules\n  t.modules.audio = true\n  t.modules.data = true\n  t.modules.event = true\n  t.modules.graphics = true\n  t.modules.headset = true\n  t.modules.math = true\n  t.modules.physics = true\n  t.modules.system = true\n  t.modules.thread = true\n  t.modules.timer = true\n\n  -- Audio\n  t.audio.spatializer = nil\n  t.audio.samplerate = 48000\n  t.audio.start = true\n\n  -- Graphics\n  t.graphics.debug = false\n  t.graphics.vsync = true\n  t.graphics.stencil = false\n  t.graphics.antialias = true\n  t.graphics.shadercache = true\n\n  -- Headset settings\n  t.headset.drivers = { 'openxr', 'desktop' }\n  t.headset.supersample = false\n  t.headset.seated = false\n  t.headset.antialias = true\n  t.headset.stencil = false\n  t.headset.submitdepth = true\n  t.headset.overlay = false\n\n  -- Math settings\n  t.math.globals = true\n\n  -- Thread settings\n  t.thread.workers = -1\n\n  -- Configure the desktop window\n  t.window.width = 1080\n  t.window.height = 600\n  t.window.fullscreen = false\n  t.window.resizable = false\n  t.window.title = 'LÖVR'\n  t.window.icon = nil\nend"
         }
       },
       notes = "Disabling unused modules can improve startup time.\n\n`t.window` can be set to nil to avoid creating the window.  The window can later be opened manually using `lovr.system.openWindow`.\n\nEnabling the `t.graphics.debug` flag will add additional error checks and will send messages from the GPU driver to the `lovr.log` callback.  This will decrease performance but can help provide information on performance problems or other bugs.  It will also cause `lovr.graphics.newShader` to embed debugging information in shaders which allows inspecting variables and stepping through shaders line-by-line in tools like RenderDoc.\n\n`t.graphics.debug` can also be enabled using the `--graphics-debug` command line option.",
@@ -202,6 +202,18 @@ return {
                       name = "globals",
                       type = "boolean",
                       description = "Whether vector object functions should be added to the global scope."
+                    }
+                  }
+                },
+                {
+                  name = "thread",
+                  type = "table",
+                  description = "Configuration for the thread module.",
+                  table = {
+                    {
+                      name = "workers",
+                      type = "number",
+                      description = "The number of worker threads to spawn.  Can be negative, which will be added to the number of cores in the system."
                     }
                   }
                 },
@@ -3412,6 +3424,10 @@ return {
             {
               name = "d16",
               description = "One 16-bit depth channel.  2 bytes per pixel."
+            },
+            {
+              name = "d24",
+              description = "One 24-bit depth channel.  4 bytes per pixel."
             },
             {
               name = "d24s8",
@@ -10279,8 +10295,12 @@ return {
               description = "Four 8-bit unsigned normalized values (aka `color`)."
             },
             {
+              name = "sn10x3",
+              description = "Three 10-bit signed normalized values, and 2 padding bits."
+            },
+            {
               name = "un10x3",
-              description = "Three 10-bit unsigned normalized values, and 2 padding bits (aka `normal`)."
+              description = "Three 10-bit unsigned normalized values, and 2 padding bits."
             },
             {
               name = "i16",
@@ -10763,7 +10783,7 @@ return {
             },
             {
               name = "cube",
-              description = "Six square 2D images with the same dimensions that define the faces of a cubemap, used for skyboxes or other \"directional\" images."
+              description = "Six square 2D images with the same dimensions that define the faces of a cubemap, used for skyboxes or other \"directional\" images.  Can also have higher multiples of 6 images, which will be interpreted as a cubemap array image."
             },
             {
               name = "array",
@@ -13035,7 +13055,7 @@ return {
                     {
                       name = "raw",
                       type = "boolean",
-                      description = "If set to true, the code is treated as a raw shader."
+                      description = "If set to true, the code is treated as a raw shader.  It will be compiled with none of the LÖVR helpers."
                     }
                   }
                 }
@@ -13074,7 +13094,7 @@ return {
                     {
                       name = "raw",
                       type = "boolean",
-                      description = "If set to true, the code is treated as a raw shader."
+                      description = "If set to true, the code is treated as a raw shader.  It will be compiled with none of the LÖVR helpers."
                     }
                   }
                 }
@@ -13113,7 +13133,7 @@ return {
                     {
                       name = "raw",
                       type = "boolean",
-                      description = "If set to true, the code is treated as a raw shader."
+                      description = "If set to true, the code is treated as a raw shader.  It will be compiled with none of the LÖVR helpers."
                     }
                   }
                 }
@@ -23964,7 +23984,7 @@ return {
               name = "getLayerCount",
               tag = "texture-metadata",
               summary = "Get the layer count of the Texture.",
-              description = "Returns the layer count of the Texture.  2D textures always have 1 layer and cubemaps always have 6 layers.  3D and array textures have a variable number of layers.",
+              description = "Returns the layer count of the Texture.  2D textures always have 1 layer and cubemaps always have a layer count divisible by 6.  3D and array textures have a variable number of layers.",
               key = "Texture:getLayerCount",
               module = "lovr.graphics",
               related = {
@@ -44669,7 +44689,7 @@ return {
             {
               name = "push",
               summary = "Push a message onto the Channel.",
-              description = "Pushes a message onto the Channel.  The following types of data can be pushed: nil, boolean, number, string, lightuserdata, vectors, and userdata (LÖVR objects).  Notably, tables are not currently supported and should be serialized to strings.",
+              description = "Pushes a message onto the Channel.  The following types of data can be pushed: nil, boolean, number, string, table, lightuserdata, vectors, and userdata (LÖVR objects).",
               key = "Channel:push",
               module = "lovr.thread",
               notes = "Threads can get stuck forever waiting on Channel messages, so be careful.",

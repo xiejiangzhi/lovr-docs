@@ -21,7 +21,8 @@ return {
       name = 'cube',
       description = [[
         Six square 2D images with the same dimensions that define the faces of a cubemap, used for
-        skyboxes or other "directional" images.
+        skyboxes or other "directional" images.  Can also have higher multiples of 6 images, which
+        will be interpreted as a cubemap array image.
       ]]
     },
     {

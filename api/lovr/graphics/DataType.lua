@@ -33,8 +33,12 @@ return {
       description = 'Four 8-bit unsigned normalized values (aka `color`).'
     },
     {
+      name = 'sn10x3',
+      description = 'Three 10-bit signed normalized values, and 2 padding bits.'
+    },
+    {
       name = 'un10x3',
-      description = 'Three 10-bit unsigned normalized values, and 2 padding bits (aka `normal`).'
+      description = 'Three 10-bit unsigned normalized values, and 2 padding bits.'
     },
     {
       name = 'i16',

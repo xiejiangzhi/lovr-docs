@@ -58,8 +58,11 @@ return {
         {
           name = 'raw',
           type = 'boolean',
-          description = 'If set to true, the code is treated as a raw shader.'
-        },
+          description = [[
+            If set to true, the code is treated as a raw shader.  It will be compiled with none of
+            the LÖVR helpers.
+          ]]
+        }
       }
     }
   },
