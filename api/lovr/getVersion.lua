@@ -15,12 +15,20 @@ return {
     patch = {
       type = 'number',
       description = 'The patch number.'
+    },
+    codename = {
+      type = 'string',
+      description = 'The version codename.'
+    },
+    commit = {
+      type = 'string',
+      description = 'The commit hash (not available in all builds).'
     }
   },
   variants = {
     {
       arguments = {},
-      returns = { 'major', 'minor', 'patch' }
+      returns = { 'major', 'minor', 'patch', 'codename', 'commit' }
     }
   }
 }

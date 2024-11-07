@@ -1089,6 +1089,16 @@ return {
                   name = "patch",
                   type = "number",
                   description = "The patch number."
+                },
+                {
+                  name = "codename",
+                  type = "string",
+                  description = "The version codename."
+                },
+                {
+                  name = "commit",
+                  type = "string",
+                  description = "The commit hash (not available in all builds)."
                 }
               }
             }
