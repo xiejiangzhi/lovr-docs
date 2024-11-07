@@ -25356,6 +25356,31 @@ return {
           }
         },
         {
+          name = "getHandles",
+          tag = "headset-misc",
+          summary = "Get native pointers to OpenXR objects.",
+          description = "Returns pointers to the OpenXR instance and session objects.\n\nThis can be used with FFI or other native plugins to integrate with other OpenXR code.",
+          key = "lovr.headset.getHandles",
+          module = "lovr.headset",
+          variants = {
+            {
+              arguments = {},
+              returns = {
+                {
+                  name = "instance",
+                  type = "lightuserdata",
+                  description = "The OpenXR instance handle (`XrInstance`)."
+                },
+                {
+                  name = "session",
+                  type = "lightuserdata",
+                  description = "The OpenXR session handle (`XrSession`)."
+                }
+              }
+            }
+          }
+        },
+        {
           name = "getHands",
           tag = "input",
           summary = "Get a list of currently tracked hand devices.",
@@ -26528,6 +26553,23 @@ return {
           related = {
             "lovr.headset.getPass",
             "lovr.headset.getTexture"
+          },
+          variants = {
+            {
+              arguments = {},
+              returns = {}
+            }
+          }
+        },
+        {
+          name = "update",
+          tag = "headset-misc",
+          summary = "Update the headset module.",
+          description = "Updates the headset module, blocking until it is time to start a new frame and polling new input states.  This should only be called once at the beginning of a frame, and is normally taken care of by the default `lovr.run` implementation.",
+          key = "lovr.headset.update",
+          module = "lovr.headset",
+          related = {
+            "lovr.headset.submit"
           },
           variants = {
             {
