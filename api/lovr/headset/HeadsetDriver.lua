@@ -8,7 +8,7 @@ return {
   ]],
   values = {
     {
-      name = 'desktop',
+      name = 'simulator',
       description = 'A VR simulator using keyboard/mouse.'
     },
     {

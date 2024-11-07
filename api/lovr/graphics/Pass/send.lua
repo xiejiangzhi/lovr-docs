@@ -10,10 +10,6 @@ return {
       type = 'string',
       description = 'The name of the Shader variable.'
     },
-    binding = {
-      type = 'number',
-      description = 'The binding number of the Shader variable.'
-    },
     buffer = {
       type = 'Buffer',
       description = 'The Buffer to assign.'
@@ -40,9 +36,9 @@ return {
       type = 'Sampler',
       description = 'The Sampler to assign.'
     },
-    constant = {
+    data = {
       type = '*',
-      description = 'Numbers, vectors, or tables to assign to the constant or uniform buffer.'
+      description = 'Numbers, booleans, vectors, or tables to assign to the data or uniform buffer.'
     }
   },
   returns = {},
@@ -60,26 +56,11 @@ return {
       returns = {}
     },
     {
-      arguments = { 'name', 'constant' },
-      returns = {}
-    },
-    {
-      arguments = { 'binding', 'buffer', 'offset', 'extent' },
-      returns = {}
-    },
-    {
-      arguments = { 'binding', 'texture' },
-      returns = {}
-    },
-    {
-      arguments = { 'binding', 'sampler' },
+      arguments = { 'name', 'data' },
       returns = {}
     }
   },
   notes = [[
-    Shader variables can be in different "sets".  Variables changed by this function must be in set
-    #2, because LÖVR uses set #0 and set #1 internally.
-
     The new value will persist until a new shader is set that uses a different "type" for the
     binding number of the variable.  See `Pass:setShader` for more details.
   ]],

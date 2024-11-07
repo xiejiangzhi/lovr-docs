@@ -18,5 +18,5 @@ return {
       returns = { 'name' }
     }
   },
-  notes = 'The desktop driver name will always be `Simulator`.'
+  notes = 'The simulator driver name will always be `Simulator`.'
 }

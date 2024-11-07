@@ -79,7 +79,7 @@ return {
             elseif name == 'keypressed' and a == 'escape' then lovr.event.quit() end
           end
 
-          if lovr.headset and lovr.headset.getDriver() ~= 'desktop' then
+          if lovr.headset and lovr.headset.getDriver() ~= 'simulator' then
             lovr.headset.update()
             local pass = lovr.headset.getPass()
             if pass then

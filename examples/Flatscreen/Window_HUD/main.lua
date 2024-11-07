@@ -1,6 +1,6 @@
 -- "Second screen experience" demo
 -- Click grid on desktop screen to build a scene simultaneously visible in VR space
--- NOTE: does not currently work properly with the desktop driver, since lovr.mirror clears the window
+-- NOTE: does not currently work properly with the simluator driver, since lovr.mirror clears the window
 --
 -- Sample contributed by andi mcc
 

@@ -7,12 +7,16 @@ return {
     format = {
       type = 'TextureFormat',
       description = 'The format of the Texture.'
+    },
+    linear = {
+      type = 'boolean',
+      description = 'Whether the format is linear or srgb.'
     }
   },
   variants = {
     {
       arguments = {},
-      returns = { 'format' }
+      returns = { 'format', 'linear' }
     }
   }
 }
