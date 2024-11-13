@@ -1,3 +1,9 @@
+-- Grid shader from https://bgolus.medium.com/the-best-darn-grid-shader-yet-727f9278b9d8
+-- Compared to the simpler Grid example, this example:
+-- * Supports custom line widths
+-- * Has world-space lines instead of lines that are always the same thickness
+-- * Has better antialiasing, especially at the horizon
+
 function lovr.load()
   shader = lovr.graphics.newShader([[
     out vec2 scale;
@@ -8,10 +14,11 @@ function lovr.load()
     }
   ]], [[
     uniform float lineWidth;
+    uniform vec3 background;
+    uniform vec3 foreground;
 
     in vec2 scale;
 
-    // https://bgolus.medium.com/the-best-darn-grid-shader-yet-727f9278b9d8
     vec4 lovrmain() {
       vec2 uv = (UV - 1.) * scale;
       vec4 uvDDXY = vec4(dFdx(uv), dFdy(uv));
@@ -23,13 +30,16 @@ function lovr.load()
       grid2 *= clamp(lineWidth / drawWidth, 0., 1.);
       grid2 = mix(grid2, vec2(lineWidth), clamp(uvDeriv * 2. - 1., 0., 1.));
       float grid = mix(grid2.x, 1., grid2.y);
-      return vec4(Color.rgb * grid, Color.a);
+      vec3 rgb = mix(gammaToLinear(background), gammaToLinear(foreground), grid);
+      return vec4(rgb, 1.);
     }
   ]])
 end
 
 function lovr.draw(pass)
   pass:setShader(shader)
-  pass:send('lineWidth', .05)
-  pass:plane(0, 0, 0, 50, 50, -math.pi / 2, 1, 0, 0)
+  pass:send('lineWidth', .005)
+  pass:send('background', { .05, .05, .05 })
+  pass:send('foreground', { .5, .5, .5 })
+  pass:plane(0, 0, 0, 200, 200, -math.pi / 2, 1, 0, 0)
 end
