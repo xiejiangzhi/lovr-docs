@@ -17,6 +17,8 @@ return {
 
     Combined, all of this makes a massive difference in quality when rendering 2D content on a
     Layer, especially improving text readability.
+
+    Note that currently the VR simulator does not support layers.
   ]],
   constructor = 'lovr.headset.newLayer'
 }
