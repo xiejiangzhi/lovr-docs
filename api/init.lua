@@ -26375,7 +26375,7 @@ return {
           description = "Sets a new passthrough mode.  Not all headsets support all passthrough modes.  Use `lovr.headset.getPassthroughModes` to see which modes are supported.",
           key = "lovr.headset.setPassthrough",
           module = "lovr.headset",
-          notes = "When using one of the transparent passthrough modes, be sure to set the alpha of the background color to zero using `lovr.graphics.setBackgroundColor`, so the background shows through.",
+          notes = "When using one of the transparent passthrough modes, be sure to set the alpha of the background color to zero using `lovr.graphics.setBackgroundColor`, so the background shows through.\n\nQuest Link currently requires some extra steps to enable passthrough, see [this article](https://developers.meta.com/horizon/documentation/native/android/mobile-passthrough-over-link) for details.",
           related = {
             "lovr.headset.getPassthroughModes"
           },
@@ -26659,7 +26659,7 @@ return {
         {
           name = "Layer",
           summary = "A quad in 3D space.",
-          description = "A Layer is a textured plane placed in 3D space.  Layers are sent directly to the VR runtime and composited along with the rest of the 3D content.  This has several advantages compared to rendering the texture into the 3D scene with `Pass:draw`:\n\n- Better tracking.  The VR runtime composites the texture later in the rendering process, using a more accurate head pose.\n- Better resolution, less shimmery.  Regular 3D content must have lens distortion correction\n  applied to it, whereas layers are composited after distortion correction, meaning they have a\n  higher pixel density.  The layer can also use a higher resolution than the main headset\n  texture, allowing for extra resolution on the 2D content without having to supersample all of\n  the 3D rendering.\n- Supersampling and sharpening effects.  Some headset runtimes (currently just Quest) can also\n  supersample and sharpen layers.\n\nCombined, all of this makes a massive difference in quality when rendering 2D content on a Layer, especially improving text readability.",
+          description = "A Layer is a textured plane placed in 3D space.  Layers are sent directly to the VR runtime and composited along with the rest of the 3D content.  This has several advantages compared to rendering the texture into the 3D scene with `Pass:draw`:\n\n- Better tracking.  The VR runtime composites the texture later in the rendering process, using a more accurate head pose.\n- Better resolution, less shimmery.  Regular 3D content must have lens distortion correction\n  applied to it, whereas layers are composited after distortion correction, meaning they have a\n  higher pixel density.  The layer can also use a higher resolution than the main headset\n  texture, allowing for extra resolution on the 2D content without having to supersample all of\n  the 3D rendering.\n- Supersampling and sharpening effects.  Some headset runtimes (currently just Quest) can also\n  supersample and sharpen layers.\n\nCombined, all of this makes a massive difference in quality when rendering 2D content on a Layer, especially improving text readability.\n\nNote that currently the VR simulator does not support layers.",
           key = "Layer",
           module = "lovr.headset",
           constructors = {

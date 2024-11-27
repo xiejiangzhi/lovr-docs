@@ -43,6 +43,10 @@ return {
   notes = [[
     When using one of the transparent passthrough modes, be sure to set the alpha of the background
     color to zero using `lovr.graphics.setBackgroundColor`, so the background shows through.
+
+    Quest Link currently requires some extra steps to enable passthrough, see [this
+    article](https://developers.meta.com/horizon/documentation/native/android/mobile-passthrough-over-link)
+    for details.
   ]],
   related = {
     'lovr.headset.getPassthroughModes'
