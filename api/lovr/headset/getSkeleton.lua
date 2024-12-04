@@ -8,7 +8,7 @@ return {
   arguments = {
     device = {
       type = 'Device',
-      description = 'The Device to query.'
+      description = 'The hand device to query (`left` or `right`).'
     },
     t = {
       type = 'table',
@@ -37,8 +37,8 @@ return {
     }
   },
   notes = [[
-    If the Device does not support tracking joints or the transforms are unavailable, `nil` is
-    returned.
+    If the Device does not support tracking joints or the transforms are unavailable, this function
+    returns `nil`.
 
     The joint orientation is similar to the graphics coordinate system: -Z is the forwards
     direction, pointing towards the fingertips.  The +Y direction is "up", pointing out of the back
