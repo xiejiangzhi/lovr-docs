@@ -13558,7 +13558,6 @@ return {
           description = "Creates a new Texture view.  A texture view does not store any pixels on its own, but instead uses the pixel data of a \"parent\" Texture object.  The width, height, format, sample count, and usage flags all match the parent.  The view may have a different `TextureType`, and it may reference a subset of the parent texture's layers and mipmap levels.\n\nTexture views are used for:\n\n- Reinterpretation of texture contents.  For example, a cubemap can be treated as an array\n  texture.\n- Rendering to a particular array layer or mipmap level of a texture.\n- Binding a particular range of layers or mipmap levels to a shader.",
           key = "lovr.graphics.newTextureView",
           module = "lovr.graphics",
-          deprecated = true,
           related = {
             "lovr.graphics.newTexture"
           },
@@ -13575,33 +13574,39 @@ return {
                   type = "table",
                   description = "Options for the texture view.",
                   table = {
-                    type = {
+                    {
+                      name = "type",
                       type = "TextureType",
                       description = "The texture type of the view.  Defaults to the type of the parent."
                     },
-                    label = {
-                      type = "string",
-                      description = "An optional label for the view that will show up in debugging tools."
-                    },
-                    layer = {
+                    {
+                      name = "layer",
                       type = "number",
                       description = "The index of the first layer referenced by the view.",
                       default = "1"
                     },
-                    layercount = {
+                    {
+                      name = "layercount",
                       type = "number",
-                      description = "            The number of layers in the view.  Defaults to 1 if a layer index is provided, otherwise\n            the view will reference all layers.\n          ",
+                      description = "The number of layers in the view.  Defaults to 1 if a layer index is provided, otherwise the view will reference all layers.",
                       default = "nil"
                     },
-                    mipmap = {
+                    {
+                      name = "mipmap",
                       type = "number",
                       description = "The index of the first mipmap referenced by the view.",
                       default = "1"
                     },
-                    mipmapcount = {
+                    {
+                      name = "mipmapcount",
                       type = "number",
-                      description = "            The number of mipmap levels in the view.  Defaults to 1 if a mipmap index is provided,\n            otherwise the view will reference all mipmaps.\n          ",
+                      description = "The number of mipmap levels in the view.  Defaults to 1 if a mipmap index is provided, otherwise the view will reference all mipmaps.",
                       default = "nil"
+                    },
+                    {
+                      name = "label",
+                      type = "string",
+                      description = "An optional label for the view that will show up in debugging tools."
                     }
                   }
                 }

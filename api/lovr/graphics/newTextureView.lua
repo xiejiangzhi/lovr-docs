@@ -1,5 +1,4 @@
 return {
-  deprecated = true,
   tag = 'texture-view',
   summary = 'Create a texture view referencing a parent Texture.',
   description = [[
@@ -24,16 +23,19 @@ return {
       type = 'table',
       description = 'Options for the texture view.',
       table = {
-        type = {
+        {
+          name = 'type',
           type = 'TextureType',
           description = 'The texture type of the view.  Defaults to the type of the parent.'
         },
-        layer = {
+        {
+          name = 'layer',
           type = 'number',
           default = '1',
           description = 'The index of the first layer referenced by the view.'
         },
-        layercount = {
+        {
+          name = 'layercount',
           type = 'number',
           default = 'nil',
           description = [[
@@ -41,12 +43,14 @@ return {
             the view will reference all layers.
           ]]
         },
-        mipmap = {
+        {
+          name = 'mipmap',
           type = 'number',
           default = '1',
           description = 'The index of the first mipmap referenced by the view.'
         },
-        mipmapcount = {
+        {
+          name = 'mipmapcount',
           type = 'number',
           default = 'nil',
           description = [[
@@ -54,7 +58,8 @@ return {
             otherwise the view will reference all mipmaps.
           ]]
         },
-        label = {
+        {
+          name = 'label',
           type = 'string',
           description = 'An optional label for the view that will show up in debugging tools.'
         }
