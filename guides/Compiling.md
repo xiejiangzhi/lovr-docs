@@ -36,6 +36,8 @@ LÖVR requires a C compiler that supports C11.  GCC 4.9, clang 3.1, and Windows 
 Windows
 ---
 
+First, make sure you have a C compiler.
+
 From the lovr folder, run these commands to create a build folder and compile the project using
 CMake:
 
@@ -232,9 +234,9 @@ to them for any issues with it, as it's an independent project.
 Troubleshooting
 ---
 
-- If you get "CMake no `CMAKE_CXX_COMPILER` found" on Windows, then install Visual Studio and create a
-  blank C++ project, which will prompt you to install the compilers and tools necessary to compile
-  LÖVR.
+- If you get "CMake no `CMAKE_CXX_COMPILER` found" on Windows, then install Visual Studio Build
+  Tools from [here](https://visualstudio.microsoft.com/downloads), restart the terminal, and retry
+  the build.
 - If you get the "The code execution cannot proceed because VCRUNTIME140_1.dll was not found" popup
   on Windows, install the Microsoft Visual C++ Redistributable package.
 - If you receive an issue about the `<stdalign.h>` header missing on Windows, then the compiler does
