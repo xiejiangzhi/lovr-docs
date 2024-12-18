@@ -35530,7 +35530,7 @@ return {
                   arguments = {
                     {
                       name = "point",
-                      type = "number",
+                      type = "Vec3",
                       description = "The local-space point."
                     }
                   },

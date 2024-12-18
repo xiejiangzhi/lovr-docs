@@ -18,7 +18,7 @@ return {
       description = 'The z position in local space.'
     },
     point = {
-      type = 'number',
+      type = 'Vec3',
       description = 'The local-space point.'
     }
   },
