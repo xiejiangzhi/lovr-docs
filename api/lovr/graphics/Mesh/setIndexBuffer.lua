@@ -16,8 +16,8 @@ return {
   },
   variants = {
     {
-      arguments = {},
-      returns = { 'buffer' }
+      arguments = { 'buffer' },
+      returns = {}
     }
   },
   notes = [[

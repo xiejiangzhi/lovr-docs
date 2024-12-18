@@ -15324,13 +15324,7 @@ return {
               variants = {
                 {
                   arguments = {},
-                  returns = {
-                    {
-                      name = "buffer",
-                      type = "Buffer",
-                      description = "The index buffer."
-                    }
-                  }
+                  returns = {}
                 }
               }
             },
