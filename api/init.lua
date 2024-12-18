@@ -35606,7 +35606,7 @@ return {
                     {
                       name = "point",
                       type = "Vec3",
-                      descriptio = "The world-space point."
+                      description = "The world-space point."
                     }
                   },
                   returns = {
