@@ -60,9 +60,8 @@ return {
     - `Pass:mesh`
 
     `Model` objects only compute their bounding box when they're loaded, using the initial node
-    transforms. If a node's transform changes, either manually with `Model:setNodeTransform` or from
-    an animation, then the bounding box will become out of sync and culling will not work properly.
-    View culling should be disabled when rendering these models.
+    transforms.  If a model is animated, then the bounding box will become out of sync and culling
+    will not work properly.  View culling should be disabled when rendering animated models.
 
     `Mesh` objects will not have a bounding box by default.  Meshes with a storage type of `cpu` can
     compute their bounding boxes using `Mesh:computeBoundingBox`, which should be called after
