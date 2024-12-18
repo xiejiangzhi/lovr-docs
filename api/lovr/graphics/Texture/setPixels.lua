@@ -123,9 +123,8 @@ return {
 
     The destination and source textures must have been created with the `transfer` usage.
 
-    Multisampled textures can not be copied.
-
-    It is not currently possible to copy to or from a texture view.
+    Images can't be copied to multisample textures.  Multisample textures can be copied between each
+    other as long as there isn't any scaling.
 
     Copying between textures requires them to have the same format.
 
@@ -133,6 +132,7 @@ return {
 
     - It is not possible to mix 3D with non-3D textures.
     - Not every texture format is supported, use `lovr.graphics.isFormatSupported` to check.
+    - The formats do not need to match, unless they're depth formats.
   ]],
   related = {
     'Texture:newReadback',
