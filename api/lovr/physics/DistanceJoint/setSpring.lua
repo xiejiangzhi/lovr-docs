@@ -41,7 +41,5 @@ return {
       extra time to reach the target.
     - Critical Damping: When the damping is exactly 1.0, there is no oscillation and the spring
       takes the minimum amount of time to reach the target (based on the frequency).
-
-    The default damping ratio is zero.
   ]]
 }
